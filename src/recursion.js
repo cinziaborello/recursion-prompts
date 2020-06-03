@@ -7,31 +7,106 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+  if (n < 0){
+    return null;
+  }
+  if (n === 0){
+    return 1;
+  }
+  return n * factorial(n-1);
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+  var newArr = array.slice();
+  var result = 0;
+  if (newArr.length !== 0){
+    result = newArr[0];
+    newArr.shift();
+    result += sum(newArr);
+  }
+
+  return result;
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  var newArr = array.slice();
+  newArr = newArr.flat(Infinity);
+  var result = 0;
+  if (newArr.length !== 0){
+    result = newArr[0];
+    newArr.shift();
+    result += arraySum(newArr);
+  }
+
+  return result;
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  n = Math.abs(n);
+  if (n === 0){
+    return true;
+  } else if (n === 1){
+    return false;
+  } else {
+    return isEven(n-2);
+  }
+
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+  var isPositive = true;
+  if (n < 0){
+    isPositive = false;
+  }
+  n = Math.abs(n);
+  var result;
+  if (n === 0){
+    return 0;
+  } else {
+    result = n-1;
+    result += sumBelow(result);
+  }
+
+  if (isPositive || result === 0){
+    return result;
+  } else {
+    return -result;
+  }
+
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  if (y-x === 0 || y-x === 1){
+    return [];
+  } else if (y-x === 2){
+    return [x+1];
+  } else if (x > y){
+    // expect(range(7,2)).to.eql([6,5,4,3]);
+    // 7 > 2 [3]
+    // 7 > 3 [4]
+    // 7 > 4 [5]
+    // 7 > 5 [6]
+    // 7 > 6 [7]
+    // 7 > 7 stop
+    //
+    var result = range(x, y+1);
+    result.push(y+1);
+    return result;
+  } else {
+    var result = range(x, y-1);
+    result.push(y-1);
+    return result;
+  }
 };
 
 // 7. Compute the exponent of a number.
