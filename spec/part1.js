@@ -329,6 +329,11 @@
         expect(range(2,3)).to.eql([]);
       });
 
+      it('should return one value array if range difference is two', function() {
+        expect(range(7,5)).to.eql([6]);
+        expect(range(2,4)).to.eql([3]);
+      });
+
       it('should accept negative integers', function() {
         expect(range(-9,-4)).to.eql([-8,-7,-6,-5]);
         expect(range(-3,2)).to.eql([-2,-1,0,1]);
